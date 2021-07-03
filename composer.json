@@ -1,0 +1,8 @@
+{
+    "name": "hexlet/code",
+    "type": "project",
+    "license": "MIT",
+    "require": {
+        "docopt/docopt": "^1.0"
+    }
+}

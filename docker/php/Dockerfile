@@ -6,6 +6,7 @@ RUN apk update \
     && apk --no-cache add \
         git \
         zsh \
+        make \
     && pecl install xdebug-3.0.4 \
     && docker-php-ext-enable xdebug \
     && apk del .build-deps

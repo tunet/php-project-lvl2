@@ -12,13 +12,18 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
+
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
               with:
                   php-version: '8.0'
                   coverage: xdebug
+
             - name: Install dependencies
               run: composer install
-            - run: |
-                  make lint
-                  make test
+
+            - name: Run linter
+              run: make linter
+
+            - name: run tests
+              run: make test

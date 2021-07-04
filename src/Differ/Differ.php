@@ -9,6 +9,7 @@ use function array_unique;
 use function file_get_contents;
 use function gettype;
 use function json_decode;
+use function sort;
 
 function genDiff(string $filePath1, string $filePath2): string
 {
@@ -17,6 +18,7 @@ function genDiff(string $filePath1, string $filePath2): string
 
     $keys = array_merge(array_keys($data1), array_keys($data2));
     $keys = array_unique($keys);
+    sort($keys);
 
     $result = array_reduce($keys, function (array $acc, $key) use ($data1, $data2) {
         if (array_key_exists($key, $data1) && !array_key_exists($key, $data2)) {

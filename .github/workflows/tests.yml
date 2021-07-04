@@ -23,7 +23,7 @@ jobs:
               run: composer install
 
             - name: Run linter
-              run: make linter
+              run: make lint
 
             - name: Run tests
               run: make test

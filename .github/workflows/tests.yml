@@ -16,14 +16,20 @@ jobs:
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
               with:
-                  php-version: '8.0'
-                  coverage: xdebug
+                php-version: '8.0'
+                coverage: xdebug
 
-            - name: Install dependencies
-              run: composer install
+            - name: Install
+              run: make install
 
             - name: Run linter
               run: make lint
 
-            - name: Run tests
-              run: make test
+            - name: Run test & publish code coverage
+              uses: paambaati/codeclimate-action@v2.6.0
+              env:
+                CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+              with:
+                coverageCommand: make test-coverage
+                coverageLocations: ${{github.workplace}}/build/logs/clover.xml:clover
+                debug: true

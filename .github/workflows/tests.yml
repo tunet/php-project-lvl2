@@ -23,15 +23,13 @@ jobs:
               run: make install
 
             - name: Run linter
-              run: |
-                make lint
-                echo 'abc'
+              run: make lint
 
             - name: Run test & publish code coverage
               uses: paambaati/codeclimate-action@v2.6.0
               env:
                 CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
               with:
-                coverageCommand: make test-coverage
+                coverageCommand: make test -- --coverage-clover ${{github.workplace}}/build/logs/clover.xml
                 coverageLocations: ${{github.workplace}}/build/logs/clover.xml:clover
                 debug: true

@@ -7,4 +7,4 @@
 [![asciicast](https://asciinema.org/a/423787.svg)](https://asciinema.org/a/423787)
 
 2. Сравнение плоских yaml файлов:
-
+[![asciicast](https://asciinema.org/a/424630.svg)](https://asciinema.org/a/424630)

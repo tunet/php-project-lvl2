@@ -15,10 +15,10 @@ class DifferYamlTest extends TestCase
         $expectedResult = <<<EXPECTED
         {
           - follow: false
-            host: test.com
+            host: hexlet.io
           - proxy: 123.234.53.22
-          - timeout: 10
-          + timeout: 200
+          - timeout: 50
+          + timeout: 20
           + verbose: true
         }
         EXPECTED;

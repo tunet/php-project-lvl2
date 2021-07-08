@@ -7,11 +7,11 @@ namespace Differ;
 use PHPUnit\Framework\TestCase;
 use function Differ\Differ\genDiff;
 
-class DifferTest extends TestCase
+class DifferJsonTest extends TestCase
 {
     public function testGenDiff(): void
     {
-        $result = genDiff('tests/fixtures/file1.json', 'tests/fixtures/file2.json');
+        $result = genDiff('tests/fixtures/json/file1.json', 'tests/fixtures/json/file2.json');
         $expectedResult = <<<EXPECTED
         {
           - follow: false

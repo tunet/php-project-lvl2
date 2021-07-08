@@ -8,13 +8,13 @@ use function array_reduce;
 use function array_unique;
 use function file_get_contents;
 use function gettype;
-use function json_decode;
+use function Parsers\Parsers\getParser;
 use function sort;
 
 function genDiff(string $filePath1, string $filePath2): string
 {
-    $data1 = json_decode(file_get_contents($filePath1), true);
-    $data2 = json_decode(file_get_contents($filePath2), true);
+    $data1 = getParsedData($filePath1);
+    $data2 = getParsedData($filePath2);
 
     $keys = array_merge(array_keys($data1), array_keys($data2));
     $keys = array_unique($keys);
@@ -54,6 +54,15 @@ function genDiff(string $filePath1, string $filePath2): string
     $strResult = implode("\n", $result);
 
     return "{\n{$strResult}\n}";
+}
+
+function getParsedData(string $filePath): array
+{
+    $extension = pathinfo($filePath, PATHINFO_EXTENSION);
+    $parser = getParser($extension);
+    $content = file_get_contents($filePath);
+
+    return $parser($content);
 }
 
 function toString($value): string

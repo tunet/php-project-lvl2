@@ -13,7 +13,8 @@ function format(array $ast): string
     return "{\n{$str}\n}";
 }
 
-function formatAst(array $ast, int $depth = 0): string {
+function formatAst(array $ast, int $depth = 0): string
+{
     $spaceLength = getSpaceLength($depth);
 
     $lines = array_reduce($ast, function (array $acc, array $node) use ($depth, $spaceLength): array {

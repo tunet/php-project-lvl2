@@ -8,3 +8,6 @@
 
 2. Сравнение плоских yaml файлов:
 [![asciicast](https://asciinema.org/a/424630.svg)](https://asciinema.org/a/424630)
+
+2. Сравнение вложенных структур:
+[![asciicast](https://asciinema.org/a/432944.svg)](https://asciinema.org/a/432944)

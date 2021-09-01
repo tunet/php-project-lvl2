@@ -5,7 +5,7 @@ validate:
 	composer validate
 
 lint:
-	composer run-script phpcs -- --standard=PSR12 src
+	composer run-script phpcs -- --standard=phpcs.xml src
 
 test:
 	composer run-script phpunit tests

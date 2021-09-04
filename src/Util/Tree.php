@@ -13,32 +13,23 @@ const OPERATION_REMOVED = 'removed';
 const VALUE_OLD = 'old';
 const VALUE_NEW = 'new';
 const VALUE_CURRENT = 'current';
-const ROOT_PATH = '/';
 
-function createNode(string $type, string $operation, string $parent, mixed $key, mixed $value): array
+function createNode(string $type, string $operation, mixed $key, mixed $value): array
 {
     return [
         'operation' => $operation,
         'type'      => $type,
-        'parent'    => $parent,
         'key'       => $key,
         'value'     => $value,
     ];
 }
 
-function createChangedNode(
-    string $oldType,
-    string $newType,
-    string $parent,
-    mixed $key,
-    mixed $oldValue,
-    mixed $newValue,
-): array {
+function createChangedNode(string $oldType, string $newType, mixed $key, mixed $oldValue, mixed $newValue): array
+{
     return [
         'operation' => OPERATION_CHANGED,
         'oldType'   => $oldType,
         'newType'   => $newType,
-        'parent'    => $parent,
         'key'       => $key,
         'oldValue'  => $oldValue,
         'newValue'  => $newValue,
@@ -75,11 +66,6 @@ function getNewType(array $node): string
     }
 
     return $node['newType'];
-}
-
-function getParent(array $node): string
-{
-    return $node['parent'];
 }
 
 function getKey(array $node): mixed
@@ -127,6 +113,11 @@ function isOldSimple(array $node): bool
 function isNewSimple(array $node): bool
 {
     return getNewType($node) === TYPE_SIMPLE;
+}
+
+function isObject(array $node): bool
+{
+    return getType($node) === TYPE_OBJECT;
 }
 
 function isNotChanged(array $node): bool

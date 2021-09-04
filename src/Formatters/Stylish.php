@@ -96,7 +96,7 @@ function getSpaceLength(int $depth): int
     return ($depth + 1) * 4;
 }
 
-function toString($value): string
+function toString(mixed $value): string
 {
     return match (gettype($value)) {
         'boolean' => $value ? 'true' : 'false',

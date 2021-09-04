@@ -22,7 +22,6 @@ use const PATHINFO_EXTENSION;
 use const Util\Tree\OPERATION_ADDED;
 use const Util\Tree\OPERATION_NOT_CHANGED;
 use const Util\Tree\OPERATION_REMOVED;
-use const Util\Tree\ROOT_PATH;
 use const Util\Tree\TYPE_OBJECT;
 
 function genDiff(string $filePath1, string $filePath2, string $format = FORMATTER_STYLISH): string
@@ -52,40 +51,36 @@ function getDataFromFile(string $filePath): array
 
 function getAst(array $data1, array $data2): array
 {
-    $func = function (array $data1, array $data2, string $parent) use (&$func): array {
+    $func = function (array $data1, array $data2) use (&$func): array {
         $keys = array_merge(array_keys($data1), array_keys($data2));
         $keys = array_unique($keys);
         sort($keys);
 
-        return array_reduce($keys, function (array $acc, $key) use ($func, $parent, $data1, $data2): array {
+        return array_reduce($keys, function (array $acc, $key) use ($func, $data1, $data2): array {
             $isFirstExists = array_key_exists($key, $data1);
             $isSecondExists = array_key_exists($key, $data2);
 
             $isFirstObject = $isFirstExists && is_array($data1[$key]);
             $isSecondObject = $isSecondExists && is_array($data2[$key]);
 
-            $newParent = ROOT_PATH === $parent ? $key : "{$parent}.{$key}";
-
             if ($isFirstObject && $isSecondObject) {
                 $acc[] = createNode(
                     TYPE_OBJECT,
                     OPERATION_NOT_CHANGED,
-                    $parent,
                     $key,
-                    $func($data1[$key], $data2[$key], $newParent),
+                    $func($data1[$key], $data2[$key]),
                 );
 
                 return $acc;
             }
 
             if ($isFirstExists && $isSecondExists && $data1[$key] !== $data2[$key]) {
-                $value1 = $isFirstObject ? $func($data1[$key], $data1[$key], $newParent) : $data1[$key];
-                $value2 = $isSecondObject ? $func($data2[$key], $data2[$key], $newParent) : $data2[$key];
+                $value1 = $isFirstObject ? $func($data1[$key], $data1[$key]) : $data1[$key];
+                $value2 = $isSecondObject ? $func($data2[$key], $data2[$key]) : $data2[$key];
 
                 $acc[] = createChangedNode(
                     getTypeIfObject($isFirstObject),
                     getTypeIfObject($isSecondObject),
-                    $parent,
                     $key,
                     $value1,
                     $value2,
@@ -95,25 +90,25 @@ function getAst(array $data1, array $data2): array
             }
 
             if ($isFirstExists && $isSecondExists) {
-                $value = $isFirstObject ? $func($data1[$key], $data1[$key], $newParent) : $data1[$key];
-                $acc[] = createNode(getTypeIfObject($isFirstObject), OPERATION_NOT_CHANGED, $parent, $key, $value);
+                $value = $isFirstObject ? $func($data1[$key], $data1[$key]) : $data1[$key];
+                $acc[] = createNode(getTypeIfObject($isFirstObject), OPERATION_NOT_CHANGED, $key, $value);
 
                 return $acc;
             }
 
             if ($isFirstExists) {
-                $value = $isFirstObject ? $func($data1[$key], $data1[$key], $newParent) : $data1[$key];
-                $acc[] = createNode(getTypeIfObject($isFirstObject), OPERATION_REMOVED, $parent, $key, $value);
+                $value = $isFirstObject ? $func($data1[$key], $data1[$key]) : $data1[$key];
+                $acc[] = createNode(getTypeIfObject($isFirstObject), OPERATION_REMOVED, $key, $value);
 
                 return $acc;
             }
 
-            $value = $isSecondObject ? $func($data2[$key], $data2[$key], $newParent) : $data2[$key];
-            $acc[] = createNode(getTypeIfObject($isSecondObject), OPERATION_ADDED, $parent, $key, $value);
+            $value = $isSecondObject ? $func($data2[$key], $data2[$key]) : $data2[$key];
+            $acc[] = createNode(getTypeIfObject($isSecondObject), OPERATION_ADDED, $key, $value);
 
             return $acc;
         }, []);
     };
 
-    return $func($data1, $data2, ROOT_PATH);
+    return $func($data1, $data2);
 }

@@ -8,6 +8,7 @@ use function str_repeat;
 use function Util\Tree\getKey;
 use function Util\Tree\getNewValue;
 use function Util\Tree\getOldValue;
+use function Util\Tree\getOperation;
 use function Util\Tree\getValue;
 use function Util\Tree\isChanged;
 use function Util\Tree\isNewSimple;
@@ -37,7 +38,7 @@ function formatAst(array $ast, int $depth = 0): string
             return $acc;
         }
 
-        $acc[] = getLeftSpace($node, $depth, OPERATION_ADDED) . getItemValue($node, $depth, VALUE_CURRENT);
+        $acc[] = getLeftSpace($node, $depth, getOperation($node)) . getItemValue($node, $depth, VALUE_CURRENT);
 
         return $acc;
     }, []);

@@ -32,13 +32,20 @@ function formatAst(array $ast, int $depth = 0): string
 {
     $lines = array_reduce($ast, function (array $acc, $node) use ($depth): array {
         if (isChanged($node)) {
-            $acc[] = getLeftSpace($node, $depth, OPERATION_REMOVED) . getItemValue($node, $depth, VALUE_OLD);
-            $acc[] = getLeftSpace($node, $depth, OPERATION_ADDED) . getItemValue($node, $depth, VALUE_NEW);
+            $space1 = getLeftSpace($node, $depth, OPERATION_REMOVED);
+            $value1 = getItemValue($node, $depth, VALUE_OLD);
+            $acc[] = "{$space1}{$value1}";
+
+            $space2 = getLeftSpace($node, $depth, OPERATION_ADDED);
+            $value2 = getItemValue($node, $depth, VALUE_NEW);
+            $acc[] = "{$space2}{$value2}";
 
             return $acc;
         }
 
-        $acc[] = getLeftSpace($node, $depth, getOperation($node)) . getItemValue($node, $depth, VALUE_CURRENT);
+        $space = getLeftSpace($node, $depth, getOperation($node));
+        $value = getItemValue($node, $depth, VALUE_CURRENT);
+        $acc[] = "{$space}{$value}";
 
         return $acc;
     }, []);

@@ -10,6 +10,8 @@ use function Util\Tree\getNewValue;
 use function Util\Tree\getOldValue;
 use function Util\Tree\getValue;
 use function Util\Tree\isChanged;
+use function Util\Tree\isNewSimple;
+use function Util\Tree\isOldSimple;
 use function Util\Tree\isSimple;
 
 use const Util\Tree\OPERATION_ADDED;
@@ -59,17 +61,23 @@ function getLeftSpace($node, int $depth, string $operation): string
 
 function getItemValue($node, int $depth, string $type): string
 {
-    $getter = match ($type) {
+    $valueGetter = match ($type) {
         VALUE_OLD => fn($node) => getOldValue($node),
         VALUE_NEW => fn($node) => getNewValue($node),
         default => fn($node) => getValue($node),
     };
 
-    if (isSimple($node)) {
-        return toString($getter($node));
+    $simpleGetter = match ($type) {
+        VALUE_OLD => fn($node) => isOldSimple($node),
+        VALUE_NEW => fn($node) => isNewSimple($node),
+        default => fn($node) => isSimple($node),
+    };
+
+    if ($simpleGetter($node)) {
+        return toString($valueGetter($node));
     }
 
-    $str = formatAst($getter($node), $depth + 1);
+    $str = formatAst($valueGetter($node), $depth + 1);
     $space = str_repeat(' ', getSpaceLength($depth));
 
     return "{\n{$str}\n{$space}}";

@@ -82,11 +82,6 @@ function getParent(array $node): string
     return $node['parent'];
 }
 
-//function isParentRoot(array $node): bool
-//{
-//    return getParent($node) === ROOT_PATH;
-//}
-
 function getKey(array $node): mixed
 {
     return $node['key'];
@@ -119,24 +114,19 @@ function getNewValue(array $node): mixed
     return $node['newValue'];
 }
 
-//function isObject(array $node): bool
-//{
-//    return getType($node) === TYPE_OBJECT;
-//}
-//
-//function isOldObject(array $node): bool
-//{
-//    return getOldType($node) === TYPE_OBJECT;
-//}
-//
-//function isNewObject(array $node): bool
-//{
-//    return getNewType($node) === TYPE_OBJECT;
-//}
-
 function isSimple(array $node): bool
 {
     return getType($node) === TYPE_SIMPLE;
+}
+
+function isOldSimple(array $node): bool
+{
+    return getOldType($node) === TYPE_SIMPLE;
+}
+
+function isNewSimple(array $node): bool
+{
+    return getNewType($node) === TYPE_SIMPLE;
 }
 
 function isNotChanged(array $node): bool

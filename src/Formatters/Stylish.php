@@ -5,10 +5,18 @@ namespace Formatters\Stylish;
 use function array_reduce;
 use function implode;
 use function str_repeat;
+use function Util\Tree\getKey;
+use function Util\Tree\getNewValue;
+use function Util\Tree\getOldValue;
 use function Util\Tree\getValue;
-use function Util\Tree\isAdded;
-use function Util\Tree\isNotChanged;
+use function Util\Tree\isChanged;
 use function Util\Tree\isSimple;
+
+use const Util\Tree\OPERATION_ADDED;
+use const Util\Tree\OPERATION_REMOVED;
+use const Util\Tree\VALUE_CURRENT;
+use const Util\Tree\VALUE_NEW;
+use const Util\Tree\VALUE_OLD;
 
 function format(array $ast): string
 {
@@ -19,17 +27,15 @@ function format(array $ast): string
 
 function formatAst(array $ast, int $depth = 0): string
 {
-    $spaceLength = getSpaceLength($depth);
+    $lines = array_reduce($ast, function (array $acc, $node) use ($depth): array {
+        if (isChanged($node)) {
+            $acc[] = getLeftSpace($node, $depth, OPERATION_REMOVED) . getItemValue($node, $depth, VALUE_OLD);
+            $acc[] = getLeftSpace($node, $depth, OPERATION_ADDED) . getItemValue($node, $depth, VALUE_NEW);
 
-    $lines = array_reduce($ast, function (array $acc, array $node) use ($depth, $spaceLength): array {
-        if (isNotChanged($node)) {
-            $space = str_repeat(' ', $spaceLength);
-        } else {
-            $symbol = isAdded($node) ? '+' : '-';
-            $space = str_repeat(' ', $spaceLength - 2) . "{$symbol} ";
+            return $acc;
         }
 
-        $acc[] = "{$space}{$node['key']}: " . getItemValue($node, $depth);
+        $acc[] = getLeftSpace($node, $depth, OPERATION_ADDED) . getItemValue($node, $depth, VALUE_CURRENT);
 
         return $acc;
     }, []);
@@ -37,13 +43,33 @@ function formatAst(array $ast, int $depth = 0): string
     return implode("\n", $lines);
 }
 
-function getItemValue($node, int $depth): string
+function getLeftSpace($node, int $depth, string $operation): string
 {
+    $spaceLength = getSpaceLength($depth);
+    $space = str_repeat(' ', $spaceLength - 2);
+    $symbol = match ($operation) {
+        OPERATION_ADDED => '+',
+        OPERATION_REMOVED => '-',
+        default => ' ',
+    };
+    $key = getKey($node);
+
+    return "{$space}{$symbol} {$key}: ";
+}
+
+function getItemValue($node, int $depth, string $type): string
+{
+    $getter = match ($type) {
+        VALUE_OLD => fn($node) => getOldValue($node),
+        VALUE_NEW => fn($node) => getNewValue($node),
+        default => fn($node) => getValue($node),
+    };
+
     if (isSimple($node)) {
-        return toString(getValue($node));
+        return toString($getter($node));
     }
 
-    $str = formatAst(getValue($node), $depth + 1);
+    $str = formatAst($getter($node), $depth + 1);
     $space = str_repeat(' ', getSpaceLength($depth));
 
     return "{\n{$str}\n{$space}}";
@@ -58,7 +84,7 @@ function toString($value): string
 {
     return match (gettype($value)) {
         'boolean' => $value ? 'true' : 'false',
-        'NULL'    => 'null',
-        default   => (string) $value,
+        'NULL' => 'null',
+        default => (string)$value,
     };
 }

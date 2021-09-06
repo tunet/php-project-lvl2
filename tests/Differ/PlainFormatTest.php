@@ -12,7 +12,7 @@ class PlainFormatTest extends TestCase
 {
     public function testGenDiff(): void
     {
-        $result = genDiff('tests/fixtures/json/file1.json', 'tests/fixtures/json/file2.json', 'plain');
+        $result = genDiff(__DIR__ . '/../fixtures/json/file1.json', __DIR__ . '/../fixtures/json/file2.json', 'plain');
         $expectedResult = <<<EXPECTED
         Property 'common.follow' was added with value: false
         Property 'common.setting2' was removed

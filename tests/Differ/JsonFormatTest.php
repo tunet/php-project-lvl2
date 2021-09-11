@@ -12,7 +12,7 @@ class JsonFormatTest extends TestCase
 {
     public function testGenDiff(): void
     {
-        $result = genDiff(__DIR__ . '/../fixtures/json/file1.json', __DIR__ . '/../fixtures/json/file2.json', 'json');
+        $result = genDiff('tests/fixtures/json/file1.json', 'tests/fixtures/json/file2.json', 'json');
         $expectedResult = <<<EXPECTED
         [
             {

@@ -12,7 +12,7 @@ class DifferYamlTest extends TestCase
 {
     public function testGenDiff(): void
     {
-        $result = genDiff(__DIR__ . '/../fixtures/yaml/file1.yml', __DIR__ . '/../fixtures/yaml/file2.yaml');
+        $result = genDiff('tests/fixtures/yaml/file1.yml', 'tests/fixtures/yaml/file2.yaml');
         $expectedResult = <<<EXPECTED
         {
             common: {

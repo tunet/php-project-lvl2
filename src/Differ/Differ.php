@@ -53,10 +53,10 @@ function getAst(array $data1, array $data2): array
 {
     $func = function (array $data1, array $data2) use (&$func): array {
         $keys = array_merge(array_keys($data1), array_keys($data2));
-        $keys = array_unique($keys);
-        sort($keys);
+        $uniqueKeys = array_unique($keys);
+        sort($uniqueKeys);
 
-        return array_reduce($keys, function (array $acc, $key) use ($func, $data1, $data2): array {
+        return array_reduce($uniqueKeys, function (array $acc, $key) use ($func, $data1, $data2): array {
             $isFirstExists = array_key_exists($key, $data1);
             $isSecondExists = array_key_exists($key, $data2);
 

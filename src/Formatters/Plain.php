@@ -32,21 +32,17 @@ function format(array $ast): string
             if (isChanged($node)) {
                 $oldValue = toString(getOldValue($node));
                 $newValue = toString(getNewValue($node));
-                $acc[] = "Property '{$property}' was updated. From {$oldValue} to {$newValue}";
 
-                return $acc;
+                return [...$acc, "Property '{$property}' was updated. From {$oldValue} to {$newValue}"];
             }
 
             if (isAdded($node)) {
                 $value = toString(getValue($node));
-                $acc[] = "Property '{$property}' was added with value: {$value}";
 
-                return $acc;
+                return [...$acc, "Property '{$property}' was added with value: {$value}"];
             }
 
-            $acc[] = "Property '{$property}' was removed";
-
-            return $acc;
+            return [...$acc, "Property '{$property}' was removed"];
         }, $acc);
     };
 

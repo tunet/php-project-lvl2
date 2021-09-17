@@ -9,10 +9,10 @@ use function array_reduce;
 use function array_unique;
 use function file_get_contents;
 use function Formatters\Formatters\getFormatter;
+use function Functional\sort;
 use function is_array;
 use function Parsers\Parsers\getParser;
 use function pathinfo;
-use function sort;
 use function Util\Tree\createChangedNode;
 use function Util\Tree\createNode;
 use function Util\Tree\getTypeIfObject;
@@ -54,9 +54,9 @@ function getAst(array $data1, array $data2): array
     $func = function (array $data1, array $data2) use (&$func): array {
         $keys = array_merge(array_keys($data1), array_keys($data2));
         $uniqueKeys = array_unique($keys);
-        sort($uniqueKeys);
+        $sortedKeys = sort($uniqueKeys, fn($key1, $key2) => $key1 <=> $key2);
 
-        return array_reduce($uniqueKeys, function (array $acc, $key) use ($func, $data1, $data2): array {
+        return array_reduce($sortedKeys, function (array $acc, $key) use ($func, $data1, $data2): array {
             $isFirstExists = array_key_exists($key, $data1);
             $isSecondExists = array_key_exists($key, $data2);
 

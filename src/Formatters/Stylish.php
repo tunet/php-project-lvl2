@@ -49,7 +49,7 @@ function formatAst(array $ast, int $depth = 0): string
     return implode("\n", $lines);
 }
 
-function getLeftSpace($node, int $depth, string $operation): string
+function getLeftSpace(mixed $node, int $depth, string $operation): string
 {
     $spaceLength = getSpaceLength($depth);
     $space = str_repeat(' ', $spaceLength - 2);
@@ -63,7 +63,7 @@ function getLeftSpace($node, int $depth, string $operation): string
     return "{$space}{$symbol} {$key}: ";
 }
 
-function getItemValue($node, int $depth, string $type): string
+function getItemValue(mixed $node, int $depth, string $type): string
 {
     $valueGetter = match ($type) {
         VALUE_OLD => fn($node) => getOldValue($node),
@@ -95,7 +95,7 @@ function getSpaceLength(int $depth): int
 function toString(mixed $value): string
 {
     return match (gettype($value)) {
-        'boolean' => $value ? 'true' : 'false',
+        'boolean' => true === $value ? 'true' : 'false', // bool expression -> fix phpstan
         'NULL' => 'null',
         default => (string)$value,
     };

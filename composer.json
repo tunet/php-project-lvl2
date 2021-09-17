@@ -12,6 +12,9 @@
             "src/Util/Tree.php"
         ]
     },
+    "bin": [
+        "gendiff"
+    ],
     "require": {
         "php": "^8.0",
         "docopt/docopt": "^1.0",

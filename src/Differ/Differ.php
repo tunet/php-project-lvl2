@@ -64,49 +64,48 @@ function getAst(array $data1, array $data2): array
             $isSecondObject = $isSecondExists && is_array($data2[$key]);
 
             if ($isFirstObject && $isSecondObject) {
-                $acc[] = createNode(
-                    TYPE_OBJECT,
-                    OPERATION_NOT_CHANGED,
-                    $key,
-                    $func($data1[$key], $data2[$key]),
-                );
-
-                return $acc;
+                return [
+                    ...$acc,
+                    createNode(
+                        TYPE_OBJECT,
+                        OPERATION_NOT_CHANGED,
+                        $key,
+                        $func($data1[$key], $data2[$key]),
+                    ),
+                ];
             }
 
             if ($isFirstExists && $isSecondExists && $data1[$key] !== $data2[$key]) {
                 $value1 = $isFirstObject ? $func($data1[$key], $data1[$key]) : $data1[$key];
                 $value2 = $isSecondObject ? $func($data2[$key], $data2[$key]) : $data2[$key];
 
-                $acc[] = createChangedNode(
-                    getTypeIfObject($isFirstObject),
-                    getTypeIfObject($isSecondObject),
-                    $key,
-                    $value1,
-                    $value2,
-                );
-
-                return $acc;
+                return [
+                    ...$acc,
+                    createChangedNode(
+                        getTypeIfObject($isFirstObject),
+                        getTypeIfObject($isSecondObject),
+                        $key,
+                        $value1,
+                        $value2,
+                    ),
+                ];
             }
 
             if ($isFirstExists && $isSecondExists) {
                 $value = $isFirstObject ? $func($data1[$key], $data1[$key]) : $data1[$key];
-                $acc[] = createNode(getTypeIfObject($isFirstObject), OPERATION_NOT_CHANGED, $key, $value);
 
-                return $acc;
+                return [...$acc, createNode(getTypeIfObject($isFirstObject), OPERATION_NOT_CHANGED, $key, $value)];
             }
 
             if ($isFirstExists) {
                 $value = $isFirstObject ? $func($data1[$key], $data1[$key]) : $data1[$key];
-                $acc[] = createNode(getTypeIfObject($isFirstObject), OPERATION_REMOVED, $key, $value);
 
-                return $acc;
+                return [...$acc, createNode(getTypeIfObject($isFirstObject), OPERATION_REMOVED, $key, $value)];
             }
 
             $value = $isSecondObject ? $func($data2[$key], $data2[$key]) : $data2[$key];
-            $acc[] = createNode(getTypeIfObject($isSecondObject), OPERATION_ADDED, $key, $value);
 
-            return $acc;
+            return [...$acc, createNode(getTypeIfObject($isSecondObject), OPERATION_ADDED, $key, $value)];
         }, []);
     };
 

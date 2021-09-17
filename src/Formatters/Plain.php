@@ -54,7 +54,7 @@ function format(array $ast): string
 function toString(mixed $value): string
 {
     return match (gettype($value)) {
-        'boolean' => $value ? 'true' : 'false',
+        'boolean' => true === $value ? 'true' : 'false', // bool expression -> fix phpstan
         'NULL' => 'null',
         'string' => "'{$value}'",
         'array' => '[complex value]',

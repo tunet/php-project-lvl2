@@ -2,9 +2,6 @@
 
 namespace Formatters\Stylish;
 
-use function array_reduce;
-use function implode;
-use function str_repeat;
 use function Util\Tree\getKey;
 use function Util\Tree\getNewValue;
 use function Util\Tree\getOldValue;

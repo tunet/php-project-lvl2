@@ -7,7 +7,6 @@ namespace Differ;
 use PHPUnit\Framework\TestCase;
 
 use function Differ\Differ\genDiff;
-use function file_get_contents;
 
 class DifferTest extends TestCase
 {

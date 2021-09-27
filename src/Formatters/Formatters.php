@@ -6,8 +6,6 @@ use InvalidArgumentException;
 
 use function Formatters\Plain\format as plainFormat;
 use function Formatters\Stylish\format as stylishFormat;
-use function json_encode;
-use function strtolower;
 
 use const JSON_PRETTY_PRINT;
 

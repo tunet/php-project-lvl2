@@ -2,17 +2,9 @@
 
 namespace Differ\Differ;
 
-use function array_key_exists;
-use function array_keys;
-use function array_merge;
-use function array_reduce;
-use function array_unique;
-use function file_get_contents;
 use function Formatters\Formatters\getFormatter;
 use function Functional\sort;
-use function is_array;
 use function Parsers\Parsers\getParser;
-use function pathinfo;
 use function Util\Tree\createChangedNode;
 use function Util\Tree\createNode;
 use function Util\Tree\getTypeIfObject;

@@ -2,9 +2,6 @@
 
 namespace Formatters\Plain;
 
-use function array_reduce;
-use function gettype;
-use function implode;
 use function Util\Tree\getKey;
 use function Util\Tree\getNewValue;
 use function Util\Tree\getOldValue;

@@ -2,6 +2,8 @@
 
 namespace Differ\Differ;
 
+use RuntimeException;
+
 use function Differ\Formatters\Formatters\getFormatter;
 use function Differ\Parsers\getParser;
 use function Differ\Tree\createChangedNode;
@@ -21,6 +23,10 @@ function genDiff(string $filePath1, string $filePath2, string $format = FORMATTE
     $ast = getAstFromFiles($filePath1, $filePath2);
     $formatter = getFormatter($format);
     $render = $formatter . '\render';
+
+    if (!is_callable($render)) {
+        throw new RuntimeException("'{$render}' is not callable.");
+    }
 
     return $render($ast);
 }

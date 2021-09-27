@@ -15,5 +15,5 @@ function render(array $ast): string
         throw new RuntimeException(json_last_error_msg());
     }
 
-    return $content;
+    return false !== $content ? $content : '';
 }

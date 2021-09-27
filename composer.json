@@ -4,12 +4,12 @@
     "license": "MIT",
     "autoload": {
         "files": [
-            "src/Differ/Differ.php",
+            "src/Differ.php",
             "src/Formatters/Formatters.php",
             "src/Formatters/Plain.php",
             "src/Formatters/Stylish.php",
-            "src/Parsers/Parsers.php",
-            "src/Util/Tree.php"
+            "src/Parsers.php",
+            "src/Tree.php"
         ]
     },
     "bin": [

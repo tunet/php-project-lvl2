@@ -2,14 +2,14 @@
 
 namespace Formatters\Plain;
 
-use function Util\Tree\getKey;
-use function Util\Tree\getNewValue;
-use function Util\Tree\getOldValue;
-use function Util\Tree\getValue;
-use function Util\Tree\isAdded;
-use function Util\Tree\isChanged;
-use function Util\Tree\isNotChanged;
-use function Util\Tree\isObject;
+use function Tree\getKey;
+use function Tree\getNewValue;
+use function Tree\getOldValue;
+use function Tree\getValue;
+use function Tree\isAdded;
+use function Tree\isChanged;
+use function Tree\isNotChanged;
+use function Tree\isObject;
 
 function format(array $ast): string
 {

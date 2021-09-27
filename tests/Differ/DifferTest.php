@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Differ;
+namespace Tests\Differ;
 
 use PHPUnit\Framework\TestCase;
 
-use function Differ\Differ\genDiff;
+use function Differ\genDiff;
 
 class DifferTest extends TestCase
 {

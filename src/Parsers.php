@@ -1,6 +1,6 @@
 <?php
 
-namespace Parsers\Parsers;
+namespace Parsers;
 
 use InvalidArgumentException;
 use RuntimeException;

@@ -2,21 +2,21 @@
 
 namespace Formatters\Stylish;
 
-use function Util\Tree\getKey;
-use function Util\Tree\getNewValue;
-use function Util\Tree\getOldValue;
-use function Util\Tree\getOperation;
-use function Util\Tree\getValue;
-use function Util\Tree\isChanged;
-use function Util\Tree\isNewSimple;
-use function Util\Tree\isOldSimple;
-use function Util\Tree\isSimple;
+use function Tree\getKey;
+use function Tree\getNewValue;
+use function Tree\getOldValue;
+use function Tree\getOperation;
+use function Tree\getValue;
+use function Tree\isChanged;
+use function Tree\isNewSimple;
+use function Tree\isOldSimple;
+use function Tree\isSimple;
 
-use const Util\Tree\OPERATION_ADDED;
-use const Util\Tree\OPERATION_REMOVED;
-use const Util\Tree\VALUE_CURRENT;
-use const Util\Tree\VALUE_NEW;
-use const Util\Tree\VALUE_OLD;
+use const Tree\OPERATION_ADDED;
+use const Tree\OPERATION_REMOVED;
+use const Tree\VALUE_CURRENT;
+use const Tree\VALUE_NEW;
+use const Tree\VALUE_OLD;
 
 function format(array $ast): string
 {

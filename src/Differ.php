@@ -1,20 +1,20 @@
 <?php
 
-namespace Differ\Differ;
+namespace Differ;
 
 use function Formatters\Formatters\getFormatter;
 use function Functional\sort;
-use function Parsers\Parsers\getParser;
-use function Util\Tree\createChangedNode;
-use function Util\Tree\createNode;
-use function Util\Tree\getTypeIfObject;
+use function Parsers\getParser;
+use function Tree\createChangedNode;
+use function Tree\createNode;
+use function Tree\getTypeIfObject;
 
 use const Formatters\Formatters\FORMATTER_STYLISH;
 use const PATHINFO_EXTENSION;
-use const Util\Tree\OPERATION_ADDED;
-use const Util\Tree\OPERATION_NOT_CHANGED;
-use const Util\Tree\OPERATION_REMOVED;
-use const Util\Tree\TYPE_OBJECT;
+use const Tree\OPERATION_ADDED;
+use const Tree\OPERATION_NOT_CHANGED;
+use const Tree\OPERATION_REMOVED;
+use const Tree\TYPE_OBJECT;
 
 function genDiff(string $filePath1, string $filePath2, string $format = FORMATTER_STYLISH): string
 {

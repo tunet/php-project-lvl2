@@ -1,6 +1,6 @@
 <?php
 
-namespace Util\Tree;
+namespace Tree;
 
 use InvalidArgumentException;
 

@@ -1,17 +1,17 @@
 <?php
 
-namespace Formatters\Plain;
+namespace Differ\Formatters\Plain;
 
-use function Tree\getKey;
-use function Tree\getNewValue;
-use function Tree\getOldValue;
-use function Tree\getValue;
-use function Tree\isAdded;
-use function Tree\isChanged;
-use function Tree\isNotChanged;
-use function Tree\isObject;
+use function Differ\Tree\getKey;
+use function Differ\Tree\getNewValue;
+use function Differ\Tree\getOldValue;
+use function Differ\Tree\getValue;
+use function Differ\Tree\isAdded;
+use function Differ\Tree\isChanged;
+use function Differ\Tree\isNotChanged;
+use function Differ\Tree\isObject;
 
-function format(array $ast): string
+function render(array $ast): string
 {
     $func = function (array $ast, array $acc = [], array $path = []) use (&$func): array {
         return array_reduce($ast, function (array $acc, $node) use ($func, $path): array {

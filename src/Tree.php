@@ -1,6 +1,6 @@
 <?php
 
-namespace Tree;
+namespace Differ\Tree;
 
 use InvalidArgumentException;
 

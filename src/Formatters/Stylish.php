@@ -1,24 +1,24 @@
 <?php
 
-namespace Formatters\Stylish;
+namespace Differ\Formatters\Stylish;
 
-use function Tree\getKey;
-use function Tree\getNewValue;
-use function Tree\getOldValue;
-use function Tree\getOperation;
-use function Tree\getValue;
-use function Tree\isChanged;
-use function Tree\isNewSimple;
-use function Tree\isOldSimple;
-use function Tree\isSimple;
+use function Differ\Tree\getKey;
+use function Differ\Tree\getNewValue;
+use function Differ\Tree\getOldValue;
+use function Differ\Tree\getOperation;
+use function Differ\Tree\getValue;
+use function Differ\Tree\isChanged;
+use function Differ\Tree\isNewSimple;
+use function Differ\Tree\isOldSimple;
+use function Differ\Tree\isSimple;
 
-use const Tree\OPERATION_ADDED;
-use const Tree\OPERATION_REMOVED;
-use const Tree\VALUE_CURRENT;
-use const Tree\VALUE_NEW;
-use const Tree\VALUE_OLD;
+use const Differ\Tree\OPERATION_ADDED;
+use const Differ\Tree\OPERATION_REMOVED;
+use const Differ\Tree\VALUE_CURRENT;
+use const Differ\Tree\VALUE_NEW;
+use const Differ\Tree\VALUE_OLD;
 
-function format(array $ast): string
+function render(array $ast): string
 {
     $str = formatAst($ast);
 

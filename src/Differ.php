@@ -20,8 +20,9 @@ function genDiff(string $filePath1, string $filePath2, string $format = FORMATTE
 {
     $ast = getAstFromFiles($filePath1, $filePath2);
     $formatter = getFormatter($format);
+    $render = $formatter . '\render';
 
-    return $formatter($ast);
+    return $render($ast);
 }
 
 function getAstFromFiles(string $filePath1, string $filePath2): array

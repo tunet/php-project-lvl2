@@ -4,20 +4,16 @@ namespace Differ\Formatters\Formatters;
 
 use InvalidArgumentException;
 
-use function Differ\Formatters\Json\render as jsonFormat;
-use function Differ\Formatters\Plain\render as plainFormat;
-use function Differ\Formatters\Stylish\render as stylishFormat;
-
 const FORMATTER_STYLISH = 'stylish';
 const FORMATTER_PLAIN = 'plain';
 const FORMATTER_JSON = 'json';
 
-function getFormatter(string $format): callable
+function getFormatter(string $format): string
 {
     return match (strtolower($format)) {
-        FORMATTER_STYLISH => fn(array $ast) => stylishFormat($ast),
-        FORMATTER_PLAIN => fn(array $ast) => plainFormat($ast),
-        FORMATTER_JSON => fn(array $ast) => jsonFormat($ast),
+        FORMATTER_STYLISH => 'Differ\Formatters\Stylish',
+        FORMATTER_PLAIN => 'Differ\Formatters\Plain',
+        FORMATTER_JSON => 'Differ\Formatters\Json',
         default => throw new InvalidArgumentException("Format {$format} is not supported"),
     };
 }

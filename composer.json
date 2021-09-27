@@ -13,7 +13,7 @@
         ]
     },
     "bin": [
-        "gendiff"
+        "bin/gendiff"
     ],
     "require": {
         "php": "^8.0",

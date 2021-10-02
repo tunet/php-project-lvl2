@@ -55,6 +55,6 @@ function toString(mixed $value): string
         'NULL' => 'null',
         'string' => "'{$value}'",
         'array' => '[complex value]',
-        default => (string)$value,
+        default => (string) $value,
     };
 }

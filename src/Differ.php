@@ -4,14 +4,14 @@ namespace Differ\Differ;
 
 use RuntimeException;
 
-use function Differ\Formatters\Formatters\getFormatter;
+use function Differ\Formatters\getFormatter;
 use function Differ\Parsers\getParser;
 use function Differ\Tree\createChangedNode;
 use function Differ\Tree\createNode;
 use function Differ\Tree\getTypeIfObject;
 use function Functional\sort;
 
-use const Differ\Formatters\Formatters\FORMATTER_STYLISH;
+use const Differ\Formatters\FORMATTER_STYLISH;
 use const Differ\Tree\OPERATION_ADDED;
 use const Differ\Tree\OPERATION_NOT_CHANGED;
 use const Differ\Tree\OPERATION_REMOVED;

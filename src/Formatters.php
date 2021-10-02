@@ -1,6 +1,6 @@
 <?php
 
-namespace Differ\Formatters\Formatters;
+namespace Differ\Formatters;
 
 use InvalidArgumentException;
 

@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <ruleset name="The PHP project LVL 2 coding standard">
     <rule ref="PSR12"/>
+    <rule ref="Generic.Formatting.SpaceAfterCast.NoSpace"/>
     <rule ref="Squiz.Arrays.ArrayDeclaration">
         <exclude name="Squiz.Arrays.ArrayDeclaration.KeyNotAligned"/>
         <exclude name="Squiz.Arrays.ArrayDeclaration.ValueNotAligned"/>

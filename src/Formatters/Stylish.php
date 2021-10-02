@@ -94,6 +94,6 @@ function toString(mixed $value): string
     return match (gettype($value)) {
         'boolean' => true === $value ? 'true' : 'false', // bool expression -> fix phpstan
         'NULL' => 'null',
-        default => (string)$value,
+        default => (string) $value,
     };
 }
